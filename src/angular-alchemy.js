@@ -19,10 +19,10 @@
         var namedModels = {};
 
         // Helper function to return a copy of the model defintion
-        // (Model Definition is the "template" for a new object.
+        // The "Model Definition" is the "template" for a new object.
         // The template is defined during the App.Config phase:
         // ----------------------------------------------------------
-        // Ex:
+        // eg:
         // AngularAlchemy.registerModel('User', {
         //      firstName: '',
         //      lastName: '',
@@ -88,8 +88,8 @@
             // If it's not, we try to find a key in the data that match
             // the model we are trying to deserialize
             // ----------------------------------------------------------
-            // Note: the "+s" is for simple way to pluralize
-            // eg: the User Model collection key could be "users"
+            // Note: the "+s" is a simple way to check for pluralized keys
+            // eg: the "User" model key for a collection could be "users"
             } else {
                 toDeserialize = data[modelName] || data[mname] || data[mname +'s'];
             }
@@ -146,7 +146,8 @@
         // ----------------------------------------------------------
         // Register / Configure our Models during App.Config
         // ----------------------------------------------------------
-        // These methods are exposed in our provider
+        // These methods are exposed in AngularAlchemyProvider
+        // ----------------------------------------------------------
 
         var registerModel = function(modelName, modelDefaults, config) {
             namedModels[modelName] = modelDefaults;
@@ -189,7 +190,7 @@
         // Attach CRUD methods to our model object.
         // Behavior varies depending on the type of objct.
         // ----------------------------------------------------------
-        // E:g:
+        // eg:
         // If it is a new object, the "save" method will submit a POST.
         // If it is an existing object, the "save" method will PUT.
         // ----------------------------------------------------------
@@ -253,14 +254,17 @@
 
         // ----------------------------------------------------------
         // Model:
-        // This method will be the main way to define the request
-        // for data.
+        // This method will be the main way to configure a request for
+        // data.
         //
-        // The data to be looked up can be a single resource
-        // or a collection
+        // Params:
+        //    - modelName: the name of the model you want to look up
+        //    - params: QueryString
+        //    - isCollection: We trying to get a list or an individual
+        //      resource?
         // ----------------------------------------------------------
         //  returns: {
-        //      get: function() {}
+        //      get: function() {} // Promise
         //  }
         // ----------------------------------------------------------
 
